@@ -103,9 +103,9 @@ Since we refactored the codebase to use pytorch-lightining, these numbers may no
 Packed pre-extracted data for both OK-VQA and F-VQA (including OCR features, VinVL object detection features, Oscar captioning features): [Google Drive](https://drive.google.com/file/d/1fDsoZDVtN0mXeWCKvGA9ITZo2GULu_La/view?usp=share_link)
 
 Pre-trained DPR checkpoint: 
-- DPR pretrained on OK-VQA and Google Search dataset (batch size 30, in-batch negative sampling, 1 GPU, grad accumulation 4) [Google Drive]()
+- DPR pretrained on OK-VQA and Google Search dataset (batch size 30, in-batch negative sampling, 1 GPU, grad accumulation 4) [Google Drive](https://drive.google.com/file/d/1Nwx-7e0aZVyXL3GxLvFIink0khbyE0QY/view?usp=share_link)
 
-# Detail Instructions
+# Detailed Instructions
 
 ## Overview
 The framework was designed and implemented by Weizhe Lin, University of Cambridge. All rights are reserved. Use with research purposes is allowed. This framework is designed for **research purpose**, with flexibility for extension. It is not a perfect framework for production, of course.
@@ -792,6 +792,6 @@ python main.py ../configs/okvqa/RAVQA_wikipedia.jsonnet  \
 
 ## Some Notes
 - For your convenience, we refactored the codebase to incorporate pytorch-lightning as the backbone. This makes model performance different from what we reported in our paper. But you should be able to obtain performance that is close enough. You can tune the hyperparameters on your own, as long as you choose the checkpoints for evaluation fairly.
-- There are no validation sets in both datasets. We evaluate systems per epoch and report reasonable performance. In fact, you may obtain higher performance by setting the validation interval shorter.
-- This publication version is made in a rush due to intensive workload that the author currently have. We will add follow-up patches to make codes more readible and ensure reproducibility. (ofc, the speed depends on the number of people who are interested in using this framework.)
+- There are no validation sets in both datasets. We evaluated systems per epoch and reported reasonable performance. In fact, you may obtain higher performance by setting a shorter validation interval.
+- This publication version was made in a rush due to intensive workload that the author currently have. We will add follow-up patches to make codes more readible and ensure reproducibility. (of course, the speed depends on the number of people who are interested in using this framework.)
 
