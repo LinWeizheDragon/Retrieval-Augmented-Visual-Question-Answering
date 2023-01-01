@@ -86,7 +86,7 @@ Gao, Feng, et al. "Transform-Retrieve-Generate: Natural Language-Centric Outside
     - TRiG (Our replication of TRiG)
     - Datasets: OK-VQA and F-VQA
 - [19/12/2022] We plan to release the code within Dec, 2022. The author is currently overwhelmed by internship work. Thanks for waiting!
-- [12/12/2022] We plan to release the code of our reproduced TRiG system, with the help of the authors of TRiG.
+- [12/12/2022] We plan to release the code of our reproduced TRiG system as well.
 
 # Benchmarks
 Using the provided codebase, it is expected to obtain the following results.
