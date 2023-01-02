@@ -130,7 +130,7 @@ dmypy.json
 
 
 #### Customised
-data/
+./data/
 Data_TB/
 Experiments/
 model_outputs
