@@ -1,0 +1,5 @@
+img: train.tsv
+hw: train.hw.tsv
+label: train.label.tsv
+labelmap: VG-SGG-dicts-danfeiX-clipped.json
+linelist: train.linelist.tsv

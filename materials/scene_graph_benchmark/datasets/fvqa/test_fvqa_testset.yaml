@@ -1,0 +1,5 @@
+img: test.tsv
+hw: test.hw.tsv
+label: test.label.tsv
+labelmap: VG-SGG-dicts-danfeiX-clipped.json
+linelist: test.linelist.tsv
