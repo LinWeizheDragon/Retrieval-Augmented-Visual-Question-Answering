@@ -4,7 +4,7 @@ This is the official repository of the Retrieval Augmented Visual Question Answe
 If our work (including the software provided) helped your research, please kindly cite our paper at EMNLP 2022:
 
 ```
-Lin, Weizhe, and Bill Byrne. "Retrieval Augmented Visual Question Answering with Outside Knowledge." arXiv preprint arXiv:2210.03809 (2022).
+Weizhe Lin and Bill Byrne. 2022. Retrieval Augmented Visual Question Answering with Outside Knowledge. In Proceedings of the 2022 Conference on Empirical Methods in Natural Language Processing, pages 11238–11254, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
 ```
 
 If you use the TRiG model, please additionally cite the TRiG paper at CVPR 2022:
@@ -79,6 +79,7 @@ Gao, Feng, et al. "Transform-Retrieve-Generate: Natural Language-Centric Outside
 <!-- /TOC -->
 
 # News
+- [08/02/2023] Our work for creating adversarial samples for the FVQA dataset is accepted to appear at EACL 2023. The dataset and codes will be released here soon.
 - [01/01/2023] We released an initial version of our work. The framework supports:
     - RA-VQA-NoDPR (T5 baseline)
     - RA-VQA-FrDPR (DPR retriever + T5 reader)
