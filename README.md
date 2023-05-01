@@ -79,6 +79,7 @@ Gao, Feng, et al. "Transform-Retrieve-Generate: Natural Language-Centric Outside
 <!-- /TOC -->
 
 # News
+- [01/05/2023] FVQA 2.0 is released [here](FVQA2.0.md).
 - [08/02/2023] Our work for creating adversarial samples for the FVQA dataset is accepted to appear at EACL 2023. The dataset and codes will be released here soon.
 - [01/01/2023] We released an initial version of our work. The framework supports:
     - RA-VQA-NoDPR (T5 baseline)
