@@ -6,6 +6,8 @@ This is the dataset download page for our investigation published at EACL 2023 F
 
 The dataset used in this paper can be downloaded from [here](https://drive.google.com/drive/folders/1dud0hIDMwGiprLS1RgzWbIGJM7pSICyz?usp=share_link)
 
+There are two files under the shared folder. The one with "\_remove_person" removes all questions that have "person" as answers. This is because knowledge related to "person" normally do not form useful questions. The final VQA performance may improve slightly, but the conclusions in the paper still hold.
+
 If our work help your research, please kindly cite the paper:
 
 ```
