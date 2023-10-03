@@ -79,6 +79,7 @@ Gao, Feng, et al. "Transform-Retrieve-Generate: Natural Language-Centric Outside
 <!-- /TOC -->
 
 # News
+- [03/10/2023] Our follow-up work "Fine-grained Late-interaction Multi-modal Retrieval for Retrieval Augmented Visual Question Answering" has been accepted to appear at NeurIPS 2023! The paper can be found here [here](https://arxiv.org/abs/2309.17133), and the code will be released in this repository soon. We are happy to announce that we have made a major change to our code framework such that experiment management and data processing are more flexible.
 - [01/05/2023] FVQA 2.0 is released [here](FVQA2.0.md).
 - [08/02/2023] Our work for creating adversarial samples for the FVQA dataset is accepted to appear at EACL 2023. The dataset and codes will be released here soon.
 - [01/01/2023] We released an initial version of our work. The framework supports:
