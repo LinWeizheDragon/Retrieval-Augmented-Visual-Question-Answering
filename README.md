@@ -1,6 +1,12 @@
+# Retrieval-augmented Visual Question Answering with Fine-grained Late-interaction Multi-modal Retrieval
 
 
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/fine-grained-late-interaction-multi-modal-1/visual-question-answering-on-ok-vqa)](https://paperswithcode.com/sota/visual-question-answering-on-ok-vqa?p=fine-grained-late-interaction-multi-modal-1)
+
+This is the official repository of the Retrieval Augmented Visual Question Answering (RAVQA) project.
+The project covers RAVQA and RAVQA-v2 (equipped with Fine-grained Late-interaction Multi-modal Retrieval).
+
+
 
 
 # 🔥🔥News
@@ -17,13 +23,10 @@
 - [19/12/2022] We plan to release the code within Dec, 2022. The author is currently overwhelmed by internship work. Thanks for waiting!
 - [12/12/2022] We plan to release the code of our reproduced TRiG system as well.
   
-# Retrieval Augmented Visual Question Answering
-This is the official repository of the Retrieval Augmented Visual Question Answering (RAVQA) project.
-
 
 ## Table of Content
+- [Retrieval-augmented Visual Question Answering with Fine-grained Late-interaction Multi-modal Retrieval](#retrieval-augmented-visual-question-answering-with-fine-grained-late-interaction-multi-modal-retrieval)
 - [🔥🔥News](#news)
-- [Retrieval Augmented Visual Question Answering](#retrieval-augmented-visual-question-answering)
   - [Table of Content](#table-of-content)
 - [Benchmarks](#benchmarks)
 - [Resources](#resources)
@@ -508,7 +511,7 @@ Now you can run training as follows:
 ```
 python src/main.py \
     --experiment_name "OKVQA_RAG_BLIP2(t5-xl)_FLMR(10ROI)" \
-    --config "configs/rag/okvqa/RAG_colbert_BLIP2_with_vision.jsonnet" \
+    --config "configs/rag/okvqa/RAG_BLIP2_with_FLMR.jsonnet" \
     --modules static_retrieval force_existence \
     --reset --override \
     --mode train \
