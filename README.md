@@ -1,5 +1,5 @@
-# News
-- [31/01/2024] We are happy to announce that the training and testing code for FLMR is now released! For the legacy RAVQA-v1 and the code for FVQA, please checkout to `legacy_v1` or tag `v1.0`. We are also preparing a new FLMR implementation for Huggingface transformers, which will be released as plug-in-and-play models.
+# 🔥🔥News
+- [31/01/2024] 🔥We are happy to announce that the training and testing code for FLMR is now released! For the legacy RAVQA-v1 and the code for FVQA, please checkout to `legacy_v1` or tag `v1.0`. We are also preparing a new FLMR implementation for Huggingface transformers, which will be released as plug-in-and-play models.🔥
 - [03/10/2023] Our follow-up work "Fine-grained Late-interaction Multi-modal Retrieval for Retrieval Augmented Visual Question Answering" has been accepted to appear at NeurIPS 2023! The paper can be found here [here](https://arxiv.org/abs/2309.17133). If you prefer a 3-minute technical summary, look at this [post](https://jinghong-chen.ghost.io/fined-grained-late-interaction-multimodal-retrieval-flmr/). The code will be released in this repository soon. We are happy to announce that we have made a major change to our code framework such that experiment management and data processing are more flexible.
 - [01/05/2023] FVQA 2.0 is released [here](FVQA2.0.md).
 - [08/02/2023] Our work for creating adversarial samples for the FVQA dataset is accepted to appear at EACL 2023. The dataset and codes will be released here soon.
@@ -17,7 +17,7 @@ This is the official repository of the Retrieval Augmented Visual Question Answe
 
 
 ## Table of Content
-- [News](#news)
+- [🔥🔥News](#news)
 - [Retrieval Augmented Visual Question Answering](#retrieval-augmented-visual-question-answering)
   - [Table of Content](#table-of-content)
 - [Benchmarks](#benchmarks)
