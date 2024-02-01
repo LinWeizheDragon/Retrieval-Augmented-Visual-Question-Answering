@@ -86,12 +86,26 @@ Using the provided codebase, it is expected to obtain the following results.
 Since we refactored the codebase significantly in clean-up, these numbers may not match exactly to what were reported in the paper.
 
 # Resources
+We host the data required for running this system in [Huggingface](https://huggingface.co/datasets/BByrneLab/RAVQAV2Data/tree/main) and Baidu Cloud (coming soon). 
 
-Packed pre-extracted data for OK-VQA (including OCR features, VinVL object detection features, Oscar captioning features): [Google Drive](https://drive.google.com/file/d/1fDsoZDVtN0mXeWCKvGA9ITZo2GULu_La/view?usp=share_link)
+The data contains:
+- Packed pre-extracted data for OK-VQA (including OCR features, VinVL object detection features, Oscar captioning features)
+- FLMR with the mapping network pretrained on WIT (batch size 30, in-batch negative sampling, 1 GPU, grad accumulation 4)
+- FLMR pretrained on OK-VQA and Google Search dataset (batch size 30, in-batch negative sampling, 1 GPU, grad accumulation 4)
 
-Pre-trained FLMR checkpoint: 
-- FLMR with the mapping network pretrained on WIT (batch size 30, in-batch negative sampling, 1 GPU, grad accumulation 4) [Google Drive](https://drive.google.com/file/d/1Nwx-7e0aZVyXL3GxLvFIink0khbyE0QY/view?usp=share_link)
-- FLMR pretrained on OK-VQA and Google Search dataset (batch size 30, in-batch negative sampling, 1 GPU, grad accumulation 4) [Google Drive](https://drive.google.com/file/d/1Nwx-7e0aZVyXL3GxLvFIink0khbyE0QY/view?usp=share_link)
+You can download these resources from Huggingface altogether: [Combined Download on Huggingface](https://huggingface.co/datasets/BByrneLab/RAVQAV2Data/blob/main/RAVQA_v2_data.tar.gz). 
+```
+wget https://huggingface.co/datasets/BByrneLab/RAVQAV2Data/resolve/main/RAVQA_v2_data.tar.gz?download=true
+```
+
+After downloading and extracting the `tar.gz`, you need to unzip all `.zip` files under `okvqa` folder  and `okvqa/pre-extracted/OCR.zip`. 
+
+After otaining all these resources, you should:
+- Change the data paths in `configs/okvqa/okvqa_data_config.libsonnet`
+- Change the paths to `TokenizerModelVersion` in `configs/okvqa/FLMR_with_ROI.jsonnet`
+- Change the paths to `EncoderModelVersion` and `TokenizerModelVersion` in `configs/okvqa/FLMR_base_preload_vision_features.jsonnet`
+
+By downloading the provided OK-VQA data, you must comply with the [OK-VQA license](https://okvqa.allenai.org/download.html) and [MS COCO license](https://cocodataset.org/#termsofuse).
 
 # Detailed Instructions
 
@@ -100,7 +114,8 @@ The framework was designed and implemented by Weizhe Lin, University of Cambridg
 
 The training and testing are backboned by pytorch-lightning. The pre-trained Transformer models are from Huggingface-transformers. The training platform is Pytorch.
 
-In this release, we designed a new framework that wraps the data processing/training/testing utilities - [Runway For ML](https://github.com/EriChen0615/runway_for_ml/tree/kbvqa_dev). It is a highly efficient framework that enables flexible experimentation and data processing. Data processing is formulated as a Directional Acyclic Graph, on which the framework traverses through nodes to prepare data. This framework enables efficient data processing at million scale. For more details, please refer to the [README](https://github.com/EriChen0615/runway_for_ml/tree/kbvqa_dev) of the framework.
+In this release, we designed a new framework that wraps the data processing/training/testing utilities - [Runway For ML](https://github.com/EriChen0615/runway_for_ml/tree/kbvqa_dev). It is a highly efficient framework that enables flexible experimentation and data processing. Data processing is formulated as a Directional Acyclic Graph, on which the framework traverses through nodes to prepare data. This framework enables efficient data processing at million scale. For more details, please refer to the [README](https://github.com/EriChen0615/runway_for_ml/tree/kbvqa_dev) of the framework. 
+When cloning this repository, please use the `kbvqa_dev` branch.
 
 The indexing and searching of FLMR is supported by [FAISS](https://github.com/facebookresearch/faiss) and [ColBERT](https://github.com/stanford-futuredata/ColBERT). The ColBERT engine is plugged into this project as a third-party package. We fixed many errors in this package following [LI-RAGE](https://github.com/amazon-science/robust-tableqa).
 
@@ -287,6 +302,7 @@ Data can be saved to `data/ok-vqa/pre-extracted_features/passages/okvqa_full_cor
 
 
 ## Feature Extraction
+We provide the pre-extracted features for OK-VQA dataset. If you want to re-extract the features or extract features for other datasets, please follow the instructions below.
 ### VinVL Features (object detection/attributes/relations)
 #### Step 1: Install environments
 VinVL needs a separate env.
