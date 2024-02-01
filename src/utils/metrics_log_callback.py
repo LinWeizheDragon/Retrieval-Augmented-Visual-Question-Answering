@@ -1,10 +1,10 @@
 import collections
 
-from pytorch_lightning.loggers import LightningLoggerBase
-from pytorch_lightning.loggers.base import rank_zero_experiment
+from pytorch_lightning.loggers import Logger
+from pytorch_lightning.loggers.logger import rank_zero_experiment
 from pytorch_lightning.utilities import rank_zero_only
 
-class MetricsHistoryLogger(LightningLoggerBase):
+class MetricsHistoryLogger(Logger):
     """
     This is a logger that logs the metrics history, since PyTorch Lightning does not directly support this feature
     It logs the metrics history in `self.history`, as long as the metric name does not end with '_auto_max' or '_auto_min'

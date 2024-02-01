@@ -30,7 +30,6 @@ def create_dirs(dirs):
                 os.makedirs(dir_)
     except Exception as err:
         logging.getLogger("Dirs Creator").info("Creating directories error: {0}".format(err))
-        exit(-1)
 
 def delete_dir(filePath):
     if os.path.exists(filePath):

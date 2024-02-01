@@ -7,6 +7,7 @@ import pytorch_lightning as pl
 from transformers import T5EncoderModel, T5Config
 from transformers import DPRQuestionEncoder, DPRContextEncoder, DPRConfig
 from transformers import BertModel, BertConfig
+from transformers import CLIPTextModel, CLIPTextConfig
 from easydict import EasyDict
 
 def get_rank():
@@ -34,7 +35,9 @@ class RetrieverDPR(pl.LightningModule):
 
         QueryEncoderConfigClass = globals()[self.config.model_config.QueryEncoderConfigClass]
         query_model_config = QueryEncoderConfigClass.from_pretrained(self.config.model_config.QueryEncoderModelVersion)
-        self.query_encoder = QueryEncoderModelClass.from_pretrained(self.config.model_config.QueryEncoderModelVersion, config=query_model_config)
+        # if query_model_config.model_type == 'clip_text_model':
+        #     query_model_config.max_position_embeddings = 512
+        self.query_encoder = QueryEncoderModelClass.from_pretrained(self.config.model_config.QueryEncoderModelVersion, config=query_model_config, ignore_mismatched_sizes=True)
         
         self.SEP_ENCODER = True if 'separate_query_and_item_encoders' in self.config.model_config.modules else None
         
@@ -43,7 +46,9 @@ class RetrieverDPR(pl.LightningModule):
 
             ItemEncoderConfigClass = globals()[self.config.model_config.ItemEncoderConfigClass]
             item_model_config = ItemEncoderConfigClass.from_pretrained(self.config.model_config.ItemEncoderModelVersion)
-            self.item_encoder = ItemEncoderModelClass.from_pretrained(self.config.model_config.ItemEncoderModelVersion, config=item_model_config)
+            # if item_model_config.model_type == 'clip_text_model':
+            #     item_model_config.max_position_embeddings = 512
+            self.item_encoder = ItemEncoderModelClass.from_pretrained(self.config.model_config.ItemEncoderModelVersion, config=item_model_config, ignore_mismatched_sizes=True)
         else:
             # Use the same model for query and item encoders
             item_model_config = query_model_config

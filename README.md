@@ -1,4 +1,16 @@
-# News
+# Retrieval-augmented Visual Question Answering with Fine-grained Late-interaction Multi-modal Retrieval
+
+
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/fine-grained-late-interaction-multi-modal-1/visual-question-answering-on-ok-vqa)](https://paperswithcode.com/sota/visual-question-answering-on-ok-vqa?p=fine-grained-late-interaction-multi-modal-1)
+
+This is the official repository of the Retrieval Augmented Visual Question Answering (RAVQA) project.
+The project covers RAVQA and RAVQA-v2 (equipped with Fine-grained Late-interaction Multi-modal Retrieval).
+
+
+
+
+# 🔥🔥News
+- [31/01/2024] 🔥We are happy to announce that the training and testing code for FLMR is now released! For the legacy RAVQA-v1 and the code for FVQA, please checkout to `legacy_v1` or tag `v1.0`. We are also preparing a new FLMR implementation for Huggingface transformers, which will be released as plug-in-and-play models.🔥
 - [03/10/2023] Our follow-up work "Fine-grained Late-interaction Multi-modal Retrieval for Retrieval Augmented Visual Question Answering" has been accepted to appear at NeurIPS 2023! The paper can be found here [here](https://arxiv.org/abs/2309.17133). If you prefer a 3-minute technical summary, look at this [post](https://jinghong-chen.ghost.io/fined-grained-late-interaction-multimodal-retrieval-flmr/). The code will be released in this repository soon. We are happy to announce that we have made a major change to our code framework such that experiment management and data processing are more flexible.
 - [01/05/2023] FVQA 2.0 is released [here](FVQA2.0.md).
 - [08/02/2023] Our work for creating adversarial samples for the FVQA dataset is accepted to appear at EACL 2023. The dataset and codes will be released here soon.
@@ -11,29 +23,14 @@
 - [19/12/2022] We plan to release the code within Dec, 2022. The author is currently overwhelmed by internship work. Thanks for waiting!
 - [12/12/2022] We plan to release the code of our reproduced TRiG system as well.
   
-# Retrieval Augmented Visual Question Answering
-This is the official repository of the Retrieval Augmented Visual Question Answering (RAVQA) project.
-
-If our work (including the software provided) helped your research, please kindly cite our paper at EMNLP 2022:
-
-```
-Weizhe Lin and Bill Byrne. 2022. Retrieval Augmented Visual Question Answering with Outside Knowledge. In Proceedings of the 2022 Conference on Empirical Methods in Natural Language Processing, pages 11238–11254, Abu Dhabi, United Arab Emirates. Association for Computational Linguistics.
-```
-
-If you use the TRiG model, please additionally cite the TRiG paper at CVPR 2022:
-```
-Gao, Feng, et al. "Transform-Retrieve-Generate: Natural Language-Centric Outside-Knowledge Visual Question Answering." Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition. 2022.
-```
 
 ## Table of Content
-<!-- TOC -->
-
-- [Retrieval Augmented Visual Question Answering](#retrieval-augmented-visual-question-answering)
+- [Retrieval-augmented Visual Question Answering with Fine-grained Late-interaction Multi-modal Retrieval](#retrieval-augmented-visual-question-answering-with-fine-grained-late-interaction-multi-modal-retrieval)
+- [🔥🔥News](#news)
   - [Table of Content](#table-of-content)
-- [News](#news)
 - [Benchmarks](#benchmarks)
 - [Resources](#resources)
-- [Detail Instructions](#detail-instructions)
+- [Detailed Instructions](#detailed-instructions)
   - [Overview](#overview)
     - [Structure](#structure)
     - [Configs](#configs)
@@ -45,11 +42,11 @@ Gao, Feng, et al. "Transform-Retrieve-Generate: Natural Language-Centric Outside
       - [Training](#training)
       - [Testing](#testing)
   - [Environments](#environments)
+  - [ElasticSearch](#elasticsearch)
   - [Download Datasets](#download-datasets)
     - [COCO images](#coco-images)
     - [OKVQA Dataset](#okvqa-dataset)
     - [Google Search Corpus](#google-search-corpus)
-    - [F-VQA Dataset](#f-vqa-dataset)
   - [Feature Extraction](#feature-extraction)
     - [VinVL Features (object detection/attributes/relations)](#vinvl-features-object-detectionattributesrelations)
       - [Step 1: Install environments](#step-1-install-environments)
@@ -63,51 +60,52 @@ Gao, Feng, et al. "Transform-Retrieve-Generate: Natural Language-Centric Outside
       - [Step 3: Running the inference](#step-3-running-the-inference)
       - [Step 4: Recommended Save Path](#step-4-recommended-save-path)
     - [Google OCR Features](#google-ocr-features)
-  - [Dense Passage Retrieval](#dense-passage-retrieval)
-    - [Training](#training-1)
-      - [OK-VQA](#ok-vqa)
-      - [F-VQA](#f-vqa)
-    - [Generating Static Retrieval Results by Testing](#generating-static-retrieval-results-by-testing)
-      - [OK-VQA](#ok-vqa-1)
-      - [F-VQA](#f-vqa-1)
-    - [Prepare FAISS index files for dynamic DPR retrieval](#prepare-faiss-index-files-for-dynamic-dpr-retrieval)
-      - [OK-VQA](#ok-vqa-2)
-      - [F-VQA](#f-vqa-2)
-  - [Baseline models without DPR for retrieval](#baseline-models-without-dpr-for-retrieval)
-    - [RA-VQA-NoDPR (T5 baseline)](#ra-vqa-nodpr-t5-baseline)
-      - [OK-VQA](#ok-vqa-3)
-      - [F-VQA](#f-vqa-3)
-  - [Baseline models with DPR](#baseline-models-with-dpr)
-    - [TRiG](#trig)
-      - [OK-VQA](#ok-vqa-4)
-      - [F-VQA](#f-vqa-4)
-  - [RAVQA framework](#ravqa-framework)
-    - [RA-VQA-FrDPR](#ra-vqa-frdpr)
-    - [RA-VQA-NoPR](#ra-vqa-nopr)
-    - [RA-VQA](#ra-vqa)
-    - [RA-VQA-NoCT](#ra-vqa-noct)
-    - [RA-VQA on Wikipedia](#ra-vqa-on-wikipedia)
-  - [Some Notes](#some-notes)
+  - [Fine-grained Late-interaction Multi-modal Retrieval](#fine-grained-late-interaction-multi-modal-retrieval)
+    - [Pretraining the mapping network with WIT](#pretraining-the-mapping-network-with-wit)
+    - [Finetuning FLMR on the GoogleSearch corpus](#finetuning-flmr-on-the-googlesearch-corpus)
+    - [Generating static retrieval results for inspection and inference](#generating-static-retrieval-results-for-inspection-and-inference)
+  - [BLIP2 with FLMR](#blip2-with-flmr)
+- [Some Notes](#some-notes)
+- [Citation](#citation)
 
-<!-- /TOC -->
 
 
 # Benchmarks
 Using the provided codebase, it is expected to obtain the following results.
 
-| Model  | VQA Score | Exact Match | Notes |
-|--------|-----------|-------------|-------|
-| TRiG   | 50.44     |             |       |
-| RA-VQA | 54.51     | 59.65       |       |
+| Model  | Recall@5 | Notes |
+|--------|-----------|-------|
+| FLMR (9 ROIs) | 89.20     |       |
+| FLMR (9 ROIs) | 89.28     |  Using the pretrained ckpt     |
 
-Since we refactored the codebase to use pytorch-lightining, these numbers may not match exactly to what were reported in the paper. The author is currently too busy to run all replications. We will add them soon. For now, you can refer to our paper for reported numbers.
+| Model  | VQA Score | Notes |
+|--------|-----------|-------|
+| RA-VQA | 54.51     | In the previous paper     |
+| RA-VQA-v2 | 61.86     | with FLMR     |
+
+Since we refactored the codebase significantly in clean-up, these numbers may not match exactly to what were reported in the paper.
 
 # Resources
+We host the data required for running this system in [Huggingface](https://huggingface.co/datasets/BByrneLab/RAVQAV2Data/tree/main) and Baidu Cloud (coming soon). 
 
-Packed pre-extracted data for both OK-VQA and F-VQA (including OCR features, VinVL object detection features, Oscar captioning features): [Google Drive](https://drive.google.com/file/d/1fDsoZDVtN0mXeWCKvGA9ITZo2GULu_La/view?usp=share_link)
+The data contains:
+- Packed pre-extracted data for OK-VQA (including OCR features, VinVL object detection features, Oscar captioning features)
+- FLMR with the mapping network pretrained on WIT (batch size 30, in-batch negative sampling, 1 GPU, grad accumulation 4)
+- FLMR pretrained on OK-VQA and Google Search dataset (batch size 30, in-batch negative sampling, 1 GPU, grad accumulation 4)
 
-Pre-trained DPR checkpoint: 
-- DPR pretrained on OK-VQA and Google Search dataset (batch size 30, in-batch negative sampling, 1 GPU, grad accumulation 4) [Google Drive](https://drive.google.com/file/d/1Nwx-7e0aZVyXL3GxLvFIink0khbyE0QY/view?usp=share_link)
+You can download these resources from Huggingface altogether: [Combined Download on Huggingface](https://huggingface.co/datasets/BByrneLab/RAVQAV2Data/blob/main/RAVQA_v2_data.tar.gz). 
+```
+wget https://huggingface.co/datasets/BByrneLab/RAVQAV2Data/resolve/main/RAVQA_v2_data.tar.gz?download=true
+```
+
+After downloading and extracting the `tar.gz`, you need to unzip all `.zip` files under `okvqa` folder  and `okvqa/pre-extracted/OCR.zip`. 
+
+After otaining all these resources, you should:
+- Change the data paths in `configs/okvqa/okvqa_data_config.libsonnet`
+- Change the paths to `TokenizerModelVersion` in `configs/okvqa/FLMR_with_ROI.jsonnet`
+- Change the paths to `EncoderModelVersion` and `TokenizerModelVersion` in `configs/okvqa/FLMR_base_preload_vision_features.jsonnet`
+
+By downloading the provided OK-VQA data, you must comply with the [OK-VQA license](https://okvqa.allenai.org/download.html) and [MS COCO license](https://cocodataset.org/#termsofuse).
 
 # Detailed Instructions
 
@@ -116,17 +114,22 @@ The framework was designed and implemented by Weizhe Lin, University of Cambridg
 
 The training and testing are backboned by pytorch-lightning. The pre-trained Transformer models are from Huggingface-transformers. The training platform is Pytorch.
 
+In this release, we designed a new framework that wraps the data processing/training/testing utilities - [Runway For ML](https://github.com/EriChen0615/runway_for_ml/tree/kbvqa_dev). It is a highly efficient framework that enables flexible experimentation and data processing. Data processing is formulated as a Directional Acyclic Graph, on which the framework traverses through nodes to prepare data. This framework enables efficient data processing at million scale. For more details, please refer to the [README](https://github.com/EriChen0615/runway_for_ml/tree/kbvqa_dev) of the framework. 
+When cloning this repository, please use the `kbvqa_dev` branch.
+
+The indexing and searching of FLMR is supported by [FAISS](https://github.com/facebookresearch/faiss) and [ColBERT](https://github.com/stanford-futuredata/ColBERT). The ColBERT engine is plugged into this project as a third-party package. We fixed many errors in this package following [LI-RAGE](https://github.com/amazon-science/robust-tableqa).
+
 ### Structure
 The framework consists of:
 
-1. **main.py**: the main program. It loads a config file and override some entries with command-line arguments. It initialises a data loader wrapper, a model trainer, and a pytorch-lightning trainer to execute training and testing.
-2. **Data Loader Wrapper**: it loads the data according to `data_modules` defined in config files. `.set_dataloader()` is called after data loading is finished. `.train_dataloader` and `.test_dataloader` are loaded.
+1. **main.py**: the main program. It loads a config file and override some entries with command-line arguments. It initialises a `RunwayExperiment` instance to execute training and testing.
+2. **Data Ops**: it loads the data according to configs specified in `data_pipeline`. The details of this feature can be found in [here](https://github.com/EriChen0615/runway_for_ml/tree/kbvqa_dev?tab=readme-ov-file#data-preprocessing-1)
 3. **Datasets**: they are automatically loaded by the data loader wrapper. `.collate_fn` is defined to collate the data. An decorator class `ModuleParser` is used to help generate the training inputs. This decorator class generates input dict according to configs (`config.model_config.input_modules/decorder_input_modules/output_modules`).
-4. **Model Trainers**: a pytorch-lightning `LightningModule` instance. It defines training/testing behaviors (training steps, optimizers, schedulers, logging, checkpointing, and so on). It initialises the model being trained at `self.model`.
+4. **Model Executors**: a pytorch-lightning `LightningModule` instance. It defines training/testing behaviors (training steps, optimizers, schedulers, logging, checkpointing, and so on). It initialises the model being trained at `self.model`.
 5. **Models**: pytorch `nn.Modules` models.
 
 ### Configs
-The configuration is achieved with `jsonnet`. It enables inheritance of config files. For example, `RAVQA.jsonnet` override its configs to `RAVQA_base.jsonnet`, which again inherits from `base_env.jsonnet` where most of important paths are defined.
+The configuration is achieved with `jsonnet`. It enables inheritance of config files. For example, `configs/okvqa/FLMR_with_ROI.jsonnet` override its configs to `configs/okvqa/FLMR_base_preload_vision_features.jsonnet`.
 
 By including the corresponding key:value pair in the config file, overriding can be easily performed.
 
@@ -181,7 +184,7 @@ The following entries in config file `test.metrics` define the metrics to comput
 ```
 
 ### WANDB Logging
-We use WANDB for logging in this framework. You will need to register a WANDB account, and change the WANDB config in `base_env.jsonnet`:
+We use WANDB for logging in this framework. You will need to register a WANDB account, and change the WANDB config in `meta_configs/hpc_meta_config.libsonnet`:
 ```
   "WANDB": {
     "CACHE_DIR":  wandb_cache_dir,
@@ -196,9 +199,18 @@ We use WANDB for logging in this framework. You will need to register a WANDB ac
 Some general cli arguments. For more details, please read the code / directly look at how they are used in training/evaluation of specific models.
 
 #### Universal
-- All trainer parameters supported by pytorch-lightning, such as `--accelerator gpu --devices 8 --strategy ddp --num_sanity_val_steps 2`
+- All trainer parameters supported by pytorch-lightning, such as :
+```
+--opts train.trainer_paras.accelerator=auto \
+             train.trainer_paras.devices=auto \
+             train.trainer_paras.strategy=ddp_find_unused_parameters_true \
+             train.trainer_paras.num_sanity_val_steps=2 \
+             train.trainer_paras.max_epochs=10000 \
+             train.trainer_paras.val_check_interval=1000 \
+             train.trainer_paras.accumulate_grad_batches=2 \
+```
 - `--experiment_name EXPERIMENT_NAME` the name of the experiment. Will be used as the name of the folder as well as the run name on WANDB
-- `--mode [train/test]` indicate the mode for running. create_data and run are used for Computron runs
+- `--mode [prepare_data/train/test]` indicate the mode for running. prepare_data only runs the data preprocessing pipeline.
 - `--modules module1 module2 module3 ...` list of modules that will be used. They will be saved to `self.config.model_config.modules` so that they are accessible anywhere in the framework.
 - `--log_prediction_tables`: logs validation/test model outputs to WANDB.
 - `--tags tag_a tag_b tag_c`: adds tags to the WANDB run.
@@ -207,23 +219,21 @@ Some general cli arguments. For more details, please read the code / directly lo
 
 - `--opts [list of configurations]` used at the end of the cli command. `self.config` will be overwritten by the configurations here. For example:
 
-  - `train.batch_size=1` batch size
-  - `train.scheduler=linear` currently supports none/linear
-  - `train.epochs=20`
-  - `train.lr=0.00002`
-  - `train.retriever_lr=0.00001`
-  - `train.additional.gradient_accumulation_steps=4` 
-  - `train.additional.warmup_steps=0`
-  - `train.additional.early_stop_patience=7`
-  - `train.additional.save_top_k=1`
-  - `valid.step_size=1`
+  - `train.batch_size=30` batch size
+  - `train.optimizer_config.scheduler=linear` currently supports none/linear
+  - `train.trainer_paras.max_epochs=10000`
+  - `train.optimizer_config.optimizer_params.lr=0.00001` learning rate
+  - `train.trainer_paras.accumulate_grad_batches=2` 
+  - `train.optimizer_config.scheduler_params.num_warmup_steps=0`
+  - `train.early_stopping_callback_paras.patience=10`
+  - `train.model_checkpoint_callback_paras.save_top_k=1` how many best checkpoints are saved
   - `valid.batch_size=4`
-  - `data_loader.additional.num_knowledge_passages=5`: an example of how you can change `K` in RAVQA training
+  - `train.trainer_paras.val_check_interval=1000` how many steps between validation
 
 #### Testing
 
-- `--test_evaluation_name test_set` this will creates a folder under the experiment folder (indicated by `--experiment_name`) and save everything there. Also, in the WANDB run (run name indicated by `--experiment_name`), a new section with this name (`test_set`) will be created, and the evaluation scores will be logged into this section.
-- `--opts test.batch_size=32` 
+- `--test_suffix XXX` this will creates a folder under the experiment folder (indicated by `--experiment_name`) and save everything there. Also, in the WANDB run (run name indicated by `--experiment_name`), a new section with this name (`XXX`) will be created, and the evaluation scores will be logged into this section.
+- `--opts test.batch_size=16` 
 - `--opts test.load_epoch=6` which checkpoint to load. Note that you need to have the same experiment name
 
 
@@ -235,16 +245,37 @@ conda activate RAVQA
 ```
 Install Pytorch:
 ```
-pip3 install torch torchvision torchaudio --extra-index-url https://download.pytorch.org/whl/cu113
+pip install torch==1.12.1+cu113 torchvision==0.13.1+cu113 torchaudio==0.12.1 --extra-index-url https://download.pytorch.org/whl/cu113
 ```
 Install other libraries:
 ```
-pip install transformers==4.12.5
+pip install transformers==4.28.1
 conda install -c pytorch faiss-gpu -y
-pip install wandb pytorch-lightning jsonnet easydict pandas scipy opencv-python fuzzywuzzy scikit-image matplotlib timm scikit-learn sentencepiece tensorboard
 pip install setuptools==59.5.0
+pip install wandb pytorch-lightning==2.0.4 jsonnetbin easydict pandas scipy opencv-python fuzzywuzzy scikit-image matplotlib timm scikit-learn sentencepiece tensorboard datasets
+pip install ujson evaluate GPUtil easydict peft==0.4.0
+pip install bitarray spacy ujson gitpython ninja absl-py openai sacrebleu
+cd third_party/ColBERT
+pip install -e .
 ```
 
+## ElasticSearch
+To speed up training and inference, this codebase supports pre-computing image features (including ROI features). These features can be overwhelming if saved to the local disk as individual files. Thus, we install ElasticSearch to index all images and their extracted features.
+
+1. Download [ElasticSearch](https://www.elastic.co/downloads/elasticsearch) and unzip
+
+2. Run ElasticSearch at a separate thread and keep it running in the background:
+```
+./bin/elasticsearch
+```
+
+3. In the first launch, note down the password
+
+4. Before running data processing scripts, set the environment variables:
+```
+export ELASTIC_CA_CERTS="/path/to/elasticsearch-8.7.0/config/certs/http_ca.crt"
+export ELASTIC_PASSWORD="YOUR PASSWORD"
+```
 
 ## Download Datasets
 Note that we provide a zip file containing all data here: [Resources](#resources)
@@ -268,20 +299,10 @@ Note that we provide a zip file containing all data here: [Resources](#resources
 
 Data can be saved to `data/ok-vqa/pre-extracted_features/passages/okvqa_full_corpus.csv`.
 
-### F-VQA Dataset
-[Official repository](https://github.com/wangpengnorman/FVQA)
-
-Data can be saved to `data/fvqa/`:
-```
-├── Name_Lists
-├── all_fact_triples_release.json
-├── all_qs_dict_release.json
-├── images
-├── kg_surface_facts.csv
-```
 
 
 ## Feature Extraction
+We provide the pre-extracted features for OK-VQA dataset. If you want to re-extract the features or extract features for other datasets, please follow the instructions below.
 ### VinVL Features (object detection/attributes/relations)
 #### Step 1: Install environments
 VinVL needs a separate env.
@@ -335,31 +356,6 @@ python tools/test_sg_net.py \
 ```
 python tools/test_sg_net.py  \
     --config-file sgg_configs/vgattr/vinvl_x152c4_okvqa_trainset.yaml  \
-    TEST.IMS_PER_BATCH 8  \
-    MODEL.WEIGHT models/vinvl/vinvl_vg_x152c4.pth  \
-    MODEL.ROI_HEADS.NMS_FILTER 1  \
-    MODEL.ROI_HEADS.SCORE_THRESH 0.2  \
-    DATA_DIR "./datasets/"  \
-    TEST.IGNORE_BOX_REGRESSION True  \
-    MODEL.ATTRIBUTE_ON True  \
-    TEST.OUTPUT_FEATURE True
-```
-For FVQA dataset:
-```
-python tools/test_sg_net.py \
-    --config-file sgg_configs/vgattr/vinvl_x152c4_fvqa_testset.yaml  \
-    TEST.IMS_PER_BATCH 8  \
-    MODEL.WEIGHT models/vinvl/vinvl_vg_x152c4.pth  \
-    MODEL.ROI_HEADS.NMS_FILTER 1  \
-    MODEL.ROI_HEADS.SCORE_THRESH 0.2  \
-    DATA_DIR "./datasets/"  \
-    TEST.IGNORE_BOX_REGRESSION True  \
-    MODEL.ATTRIBUTE_ON True  \
-    TEST.OUTPUT_FEATURE True
-```
-```
-python tools/test_sg_net.py  \
-    --config-file sgg_configs/vgattr/vinvl_x152c4_fvqa_trainset.yaml  \
     TEST.IMS_PER_BATCH 8  \
     MODEL.WEIGHT models/vinvl/vinvl_vg_x152c4.pth  \
     MODEL.ROI_HEADS.NMS_FILTER 1  \
@@ -425,18 +421,6 @@ python oscar/run_captioning.py \
     --output_prediction_path './output/[train/val/test]_predictions.json' \
     --eval_model_dir pretrained_models/coco_captioning_large_scst/checkpoint-4-50000
 ```
-For FVQA dataset
-```
-python oscar/run_captioning.py \
-    --do_test \
-    --do_eval \
-    --test_yaml ../scene_graph_benchmark/datasets/fvqa_for_oscar/test.yaml \
-    --per_gpu_eval_batch_size 16 \
-    --num_beams 5 \
-    --max_gen_length 20 \
-    --output_prediction_path './output/test_predictions.json' \
-    --eval_model_dir /mnt/e/projects/Oscar/pretrained_models/coco_captioning_large_scst/checkpoint-4-50000
-```
 
 Note that in the script, `transformer` is renamed to `transformer2` such that it won't conflict with existing `transformer` package in your environment.
 
@@ -452,350 +436,155 @@ python ocr.py
 ```
 The detected features will be saved to `data/ok-vqa/pre-extracted_features/OCR`.
 
-## Dense Passage Retrieval
-### Training
-We have extended DPR training to support multiple GPUs using DDP.
-#### OK-VQA
-This checkpoint has been provided earlier in this document.
+## Fine-grained Late-interaction Multi-modal Retrieval
+**IMPORTANT NOTE**: In the following sections, first you need to run the provided scripts with `--mode train` changed to `--mode prepare_data`. This runs the data preprocessing and save the processing results to the cache folder. Then, you will be able to reuse these cache files in later runs. If you want to re-run some of the data nodes, open the data config file (e.g. `configs/okvqa/okvqa_data_config.libsonnet`) and change `regenerate=False` to `True`, and then rerun the script with `--mode prepare_data`. You will see that the nodes with `regenerate=True`, along with their downstream nodes,  are re-generated.
+
+### Pretraining the mapping network with WIT
+
 ```
-python main.py ../configs/okvqa/DPR.jsonnet \
+python src/main.py \
+    --experiment_name "FLMR_Pretraining(WIT)_MappingNetwork(32)" \
+    --config "configs/wit/FLMR_WIT_pretraining.jsonnet" \
+    --reset --override \
     --mode train \
-    --experiment_name OKVQA_DPR_FullCorpus  \
-    --accelerator auto --devices auto  \
-    --strategy ddp \
-    --modules exhaustive_search_in_testing \
-    --opts train.epochs=10 \
-            train.batch_size=8 \
-            valid.step_size=1 \
-            valid.batch_size=32 \
-            train.additional.gradient_accumulation_steps=4 \
-            train.lr=0.00001
+    --opts train.trainer_paras.accelerator=auto \
+             train.trainer_paras.devices=auto \
+             train.trainer_paras.strategy=ddp_find_unused_parameters_true \
+             train.trainer_paras.num_sanity_val_steps=2 \
+             train.trainer_paras.max_epochs=10000 \
+             train.batch_size=30 \
+             train.trainer_paras.val_check_interval=1000 \
+             valid.batch_size=16 \
+             train.trainer_paras.accumulate_grad_batches=2 \
+             train.early_stopping_callback_paras.patience=10 \
+             train.optimizer_config.optimizer_params.lr=0.00001 \
+             train.optimizer_config.scheduler=none \
 ```
-#### F-VQA
-This checkpoint is not provided since there are 5 models for 5 splits respectively. You can easily train your own DPR models, and pick the checkpoints you want to load. We recommend running jobs in parallel using slurm/bash.
-```
-python main.py ../configs/fvqa/DPR.jsonnet \
-     --mode train \
-     --experiment_name FVQA_DPR_split_0 \
-     --accelerator auto --devices auto \
-     --opts train.epochs=10 \
-             train.batch_size=8 \
-             valid.step_size=1 \
-             valid.batch_size=32 \
-             train.additional.gradient_accumulation_steps=4 \
-             train.lr=0.00001 \
-             train.additional.early_stop_patience=5 \
-             data_loader.dataset_modules.module_dict.LoadFVQAData.config.use_split="0"
-```
-### Generating Static Retrieval Results by Testing
-#### OK-VQA
-This checkpoint has been provided earlier in this document.
+A pretrained checkpoint is provided earlier in this document. You don't have to run the pretraining on your own.
 
-Testing set:
+### Finetuning FLMR on the GoogleSearch corpus
 ```
-python main.py ../configs/okvqa/DPR.jsonnet \
-    --mode test \
-    --experiment_name OKVQA_DPR_FullCorpus \
-    --accelerator auto --devices 1 \
-    --test_evaluation_name generate_test_set \
-    --opts train.batch_size=64 \
-            valid.batch_size=64 \
-            test.load_epoch=06
-```
-Training set:
-```
-python main.py ../configs/okvqa/DPR.jsonnet \
-    --mode test \
-    --experiment_name OKVQA_DPR_FullCorpus \
-    --accelerator auto --devices 1 \
-    --test_evaluation_name generate_train_set \
-    --opts train.batch_size=64 \
-            valid.batch_size=64 \
-            test.load_epoch=06 \
-            data_loader.use_dataset=train
-```
-#### F-VQA
-You need to modify `test.load_epoch=x` to the epoch you want to load. We use epoch0 for example.
-
-Testing set:
-```
-CUDA_VISIBLE_DEVICES=5 python main.py ../configs/fvqa/DPR.jsonnet \
-    --mode test \
-    --experiment_name FVQA_DPR_split_0 \
-    --accelerator auto --devices 1 \
-    --test_evaluation_name generate_test_set \
-    --opts train.batch_size=64 \
-            valid.batch_size=64 \
-            test.load_epoch=0 \
-            data_loader.dataset_modules.module_dict.LoadFVQAData.config.use_split="0"
-```
-Training set:
-```
-CUDA_VISIBLE_DEVICES=5 python main.py ../configs/fvqa/DPR.jsonnet \
-    --mode test \
-    --experiment_name FVQA_DPR_split_0 \
-    --accelerator auto --devices 1 \
-    --test_evaluation_name generate_train_set \
-    --opts train.batch_size=64 \
-            valid.batch_size=64 \
-            test.load_epoch=0 \
-            data_loader.use_dataset=train \
-            data_loader.dataset_modules.module_dict.LoadFVQAData.config.use_split="0"
-```
-
-### Prepare FAISS index files for dynamic DPR retrieval
-#### OK-VQA
-```
-python tools/prepare_faiss_index.py  \
-    --csv_path ../data/ok-vqa/pre-extracted_features/passages/okvqa_full_corpus_title.csv \
-    --output_dir  ../data/ok-vqa/pre-extracted_features/faiss/ok-vqa-passages-full-new-framework \
-    --dpr_ctx_encoder_model_name /path/to/Experiments/OKVQA_DPR_FullCorpus/train/saved_model/epoch6/item_encoder \
-    --dpr_ctx_encoder_tokenizer_name /path/to/Experiments/OKVQA_DPR_FullCorpus/train/saved_model/epoch6/item_encoder_tokenizer \
-```
-#### F-VQA
-```
-python tools/prepare_faiss_index.py  \
-    --csv_path ../data/fvqa/kg_surface_facts.csv \
-    --output_dir  ../data/fvqa/pre-extracted_features/faiss/fvqa-passages-full \
-    --dpr_ctx_encoder_model_name /additional_data/projects/RAVQA/Experiments/FVQA_DPR_split_0/train/saved_model/epoch0/item_encoder \
-    --dpr_ctx_encoder_tokenizer_name /additional_data/projects/RAVQA/Experiments/FVQA_DPR_split_0/train/saved_model/epoch0/item_encoder_tokenizer
-```
-
-## Baseline models without DPR for retrieval
-Note: the OK-VQA evaluation script does not support partial evaluation (it throws an error when the number of questions to be evaluated does not match to the total number of questions in the dataset), you may want to write some additional codes to gather model predictions from other GPUs to RANK 0. In our experiments, one single A100 GPU was sufficient, and thus we did not put effort in this extension. We may consider adding support for this feature in our later updates.
-
-### RA-VQA-NoDPR (T5 baseline)
-
-#### OK-VQA
-```
-python main.py ../configs/okvqa/baseline_T5.jsonnet \
+python src/main.py \
+    --experiment_name "OKVQA_FLMR_9ROI_with_text_based_vision_fix_lens" \
+    --config "configs/okvqa/FLMR_with_ROI.jsonnet" \
+    --reset --override \
     --mode train \
-    --experiment_name OKVQA_RA-VQA-NoDPR  \
-    --accelerator auto --devices 1  \
-    --opts train.epochs=10  \
-            train.batch_size=1  \
-            valid.step_size=1  \
-            valid.batch_size=32  \
-            train.additional.gradient_accumulation_steps=32  \
-            train.lr=0.00006  \
-            train.scheduler=linear
+    --opts train.trainer_paras.accelerator=auto \
+             train.trainer_paras.devices=auto \
+             train.trainer_paras.strategy=ddp_find_unused_parameters_true \
+             train.trainer_paras.num_sanity_val_steps=2 \
+             train.trainer_paras.max_epochs=10000 \
+             train.batch_size=30 \
+             train.trainer_paras.val_check_interval=1000 \
+             valid.batch_size=16 \
+             train.trainer_paras.accumulate_grad_batches=2 \
+             train.early_stopping_callback_paras.patience=10 \
+             train.optimizer_config.optimizer_params.lr=0.00001 \
+             train.optimizer_config.scheduler=none \
+             model_config.num_ROIs=9 \
+             train.load_model_path="checkpoint_path" \
 ```
-#### F-VQA
-```
-python main.py ../configs/fvqa/baseline_T5.jsonnet \
-    --mode train \
-    --experiment_name FVQA_RA-VQA-NoDPR_split_0  \
-    --accelerator auto --devices 1  \
-    --opts train.epochs=20  \
-            train.batch_size=1  \
-            valid.step_size=1  \
-            valid.batch_size=32  \
-            train.additional.gradient_accumulation_steps=32  \
-            train.lr=0.00008  \
-            train.scheduler=linear \
-            data_loader.dataset_modules.module_dict.LoadFVQAData.config.use_split="0"
-```
+`checkpoint_path` is the path to either the checkpoint saved during the pretraining in the previous step, or the pretrained checkpoint `WIT_pretrained_ckpt.ckpt`.
 
-## Baseline models with DPR
-For models using static DPR outputs, pre-trained DPR features (derived from "Generating Static Retrieval Results by Testing") should be configured at the config file.
-Can override `data_loader.dataset_modules.module_dict.LoadPretrainedDPROutputForGoogleSearchPassage.config.pretrained_dpr_outputs` or simply change the path in `base_env.jsonnet`:
+
+### Generating static retrieval results for inspection and inference
 ```
-local pretrained_dpr_features = {
-  "train": "/path/to/Experiments/Knowledge_Retriever_DPR_dim_768_inbatch_negative_caption_FullCorpus_NewRun/test/test_evaluation/train_predictions.json",
-  "test": "/path/to/Experiments/Knowledge_Retriever_DPR_dim_768_inbatch_negative_caption_FullCorpus_NewRun/test/test_evaluation/test_predictions.json",
+python src/main.py \
+    --experiment_name "OKVQA_FLMR_9ROI_with_text_based_vision_generate_index" \
+    --config "configs/okvqa/FLMR_with_ROI.jsonnet" \
+    --reset --override \
+    --test_suffix generate_index \
+    --mode test \
+    --opts test.trainer_paras.accelerator=auto \
+             test.trainer_paras.devices=auto \
+             test.trainer_paras.strategy=ddp_find_unused_parameters_true \
+             test.batch_size=16 \
+             model_config.num_ROIs=10 \
+             train.load_model_path="checkpoitn_path" \
+             data_pipeline.transforms.input:LoadGoogleSearchAnnotations.setup_kwargs.use_all_samples=1 \
+```
+## BLIP2 with FLMR
+The static results are generated in the previous step:
+```
+"/path/to/experiments/OKVQA_FLMR_9ROI_with_text_based_vision_generate_index/test/generate_index/generate_index_test_OKVQADatasetForDPR.test_predictions_rank_0.json",
+"/path/to/experiments/OKVQA_FLMR_9ROI_with_text_based_vision_generate_index/test/generate_index/generate_index_test_OKVQADatasetForDPR.train_predictions_rank_0.json",
+```
+Change the config file `configs/rag/okvqa/RAG_BLIP2_with_FLMR.jsonnet`
+```
+local index_files = {
+  "index_path": "",
+  "embedding_path": "",
+  "static_results": [
+    "/path/to/experiments/OKVQA_FLMR_9ROI_with_text_based_vision_generate_index/test/generate_index/generate_index_test_OKVQADatasetForDPR.test_predictions_rank_0.json",
+    "/path/to/experiments/OKVQA_FLMR_9ROI_with_text_based_vision_generate_index/test/generate_index/generate_index_test_OKVQADatasetForDPR.train_predictions_rank_0.json",
+  ],
 };
 ```
-Then run the training script.
+Note: this framework also supports retrieving passages dynamically. Due to time constraints, we are not able to provide a hit-to-run instruction for that feature. Users are encouraged to explore this feature if they are interested in using RAVQA-v2 with joint training (similar to RAVQA-v1).
 
-### TRiG
-#### OK-VQA
-```
-python main.py ../configs/okvqa/TRiG.jsonnet  \
-    --mode train  \
-    --experiment_name OKVQA_TRiG  \
-    --accelerator auto --devices auto  \
-    --opts train.epochs=10 \
-            train.batch_size=1 \
-            valid.step_size=1 \
-            valid.batch_size=32 \
-            train.additional.gradient_accumulation_steps=32 \
-            train.lr=0.00006 \
-            train.retriever_lr=0.00001 \
-            train.scheduler=linear \
-            data_loader.additional.num_knowledge_passages=5
-```
-#### F-VQA
-```
-python main.py ../configs/fvqa/TRiG.jsonnet  \
-    --mode train  \
-    --experiment_name FVQA_TRiG_split_0  \
-    --accelerator auto --devices auto  \
-    --opts train.epochs=10 \
-            train.batch_size=1 \
-            valid.step_size=1 \
-            valid.batch_size=32 \
-            train.additional.gradient_accumulation_steps=32 \
-            train.lr=0.00006 \
-            train.retriever_lr=0.00001 \
-            train.scheduler=linear \
-            data_loader.additional.num_knowledge_passages=5 \
-            data_loader.dataset_modules.module_dict.LoadFVQAData.config.use_split="0" \
-            data_loader.dataset_modules.module_dict.LoadPretrainedDPROutputForGoogleSearchPassage.config.pretrained_dpr_outputs.train="../Experiments/FVQA_DPR_split_0/test/generate_train_set/generate_train_set_predictions.json" \
-            data_loader.dataset_modules.module_dict.LoadPretrainedDPROutputForGoogleSearchPassage.config.pretrained_dpr_outputs.test="../Experiments/FVQA_DPR_split_0/test/generate_test_set/generate_test_set_predictions.json"
-```
 
-## RAVQA framework
-Here, we load the index file to dynamically retrieve documents in training with the fast search of FAISS. You should specify some paths in the config file `RAVQA_base.jsonnet`:
+Now you can run training as follows:
+```
+python src/main.py \
+    --experiment_name "OKVQA_RAG_BLIP2(t5-xl)_FLMR(10ROI)" \
+    --config "configs/rag/okvqa/RAG_BLIP2_with_FLMR.jsonnet" \
+    --modules static_retrieval force_existence \
+    --reset --override \
+    --mode train \
+    --opts train.trainer_paras.accelerator=auto \
+             train.trainer_paras.devices=auto \
+             train.trainer_paras.strategy=ddp_find_unused_parameters_true \
+             train.trainer_paras.num_sanity_val_steps=2 \
+             train.trainer_paras.max_epochs=9999999 \
+             train.trainer_paras.precision="bf16" \
+             train.batch_size=1 \
+             train.trainer_paras.val_check_interval=500 \
+             valid.batch_size=16 \
+             train.trainer_paras.accumulate_grad_batches=16 \
+             train.early_stopping_callback_paras.patience=5 \
+             train.optimizer_config.optimizer_params.lr=0.0001 \
+             train.optimizer_config.scheduler=none \
+             train.model_checkpoint_callback_paras.save_top_k=1 \
+             model_config.num_beams=2 \
+             model_config.num_knowledge_passages=5 \
+             model_config.num_knowledge_passages_in_training=5 \
+```
+If you encounter GPU OOM errors, try reducing `num_knowledge_passages_in_training` to reduce the passages used in each forward pass. If `num_knowledge_passages_in_training < num_knowledge_passages (K)`, random passages will be drawn from top-K retrieved documents.
 
-- Which query encoder to load? It must be a huggingface transformer model (saved by `.save_pretrained()`). We generate the DPR checkpoints during training, which you can directly use here.
-```
-"QueryEncoderModelVersion": "/path/to/Experiments/OKVQA_DPR_FullCorpus/train/saved_model/epoch6/query_encoder",
-```
-- Which index file to use? These files will be generated when you run the steps in [Prepare FAISS index files for dynamic DPR retrieval](#prepare-faiss-index-files-for-dynamic-dpr-retrieval)
-```
-// data configuration
-local RAG_data_config_full = {
-  "index_passages_path": "../data/ok-vqa/pre-extracted_features/faiss/ok-vqa-passages-full-caption-pretrained-NewRun/my_knowledge_dataset",
-  "index_path": "../data/ok-vqa/pre-extracted_features/faiss/ok-vqa-passages-full-caption-pretrained-NewRun/my_knowledge_dataset_hnsw_index.faiss",
-};
-```
 
-### RA-VQA-FrDPR
-DPR is frozen during training
-```
-python main.py ../configs/okvqa/RAVQA.jsonnet  \
-    --mode train  \
-    --experiment_name OKVQA_RA-VQA-FrDPR_FullCorpus  \
-    --accelerator auto --devices 1  \
-    --modules freeze_question_encoder force_existence  \
-    --opts train.epochs=10  \
-            train.batch_size=2  \
-            valid.step_size=1  \
-            valid.batch_size=32  \
-            train.additional.gradient_accumulation_steps=16  \
-            train.lr=0.00006  \
-            train.retriever_lr=0.00001  \
-            train.scheduler=linear  \
-            data_loader.additional.num_knowledge_passages=5
-```
-For FVQA dataset:
-```
-python main.py ../configs/fvqa/RAVQA.jsonnet  \
-    --mode train  \
-    --experiment_name FVQA_RA-VQA-FrDPR-split-0  \
-    --accelerator auto --devices 1  \
-    --tags RA-VQA-FrDPR \
-    --modules freeze_question_encoder force_existence  \
-    --opts train.epochs=20  \
-            train.batch_size=2  \
-            valid.step_size=1  \
-            valid.batch_size=32  \
-            train.additional.gradient_accumulation_steps=16  \
-            train.additional.early_stop_patience=3 \
-            train.lr=0.00008  \
-            train.retriever_lr=0.00001  \
-            train.scheduler=none  \
-            data_loader.additional.num_knowledge_passages=5 \
-            model_config.QueryEncoderModelVersion=/additional_data/projects/RAVQA/Experiments/FVQA_DPR_split_0/train/saved_model/epoch0/query_encoder \
-            data_loader.index_files.index_passages_path=../data/fvqa/pre-extracted_features/faiss/fvqa-passages-split-0/my_knowledge_dataset \
-            data_loader.index_files.index_path=../data/fvqa/pre-extracted_features/faiss/fvqa-passages-split-0/my_knowledge_dataset_hnsw_index.faiss
-```
-
-### RA-VQA-NoPR
-Only model predictions are used to train the retriever:
-```
-python main.py ../configs/okvqa/RAVQA.jsonnet  \
-    --mode train  \
-    --experiment_name RA-VQA-NoPR  \
-    --accelerator auto --devices 1  \
-    --modules force_existence  \
-    --opts train.epochs=10  \
-            train.batch_size=4  \
-            valid.step_size=1  \
-            valid.batch_size=32  \
-            train.additional.gradient_accumulation_steps=8  \
-            train.lr=0.00006  \
-            train.retriever_lr=0.00001  \
-            train.scheduler=linear  \
-            model_config.loss_ratio.additional_loss=1  \
-            model_config.RAVQA_loss_type=NoPR  \
-            data_loader.additional.num_knowledge_passages=5
-```
-
-### RA-VQA
-Training with both Pseudo Relevance Labels and Model Predictions:
-```
-python main.py ../configs/okvqa/RAVQA.jsonnet  \
-    --mode train  \
-    --experiment_name OKVQA_RA-VQA_FullCorpus  \
-    --accelerator auto --devices 1  \
-    --modules force_existence  \
-    --opts train.epochs=10  \
-            train.batch_size=1  \
-            valid.step_size=1  \
-            valid.batch_size=4  \
-            train.additional.gradient_accumulation_steps=32  \
-            train.lr=0.00006  \
-            train.retriever_lr=0.00001  \
-            train.scheduler=linear  \
-            model_config.loss_ratio.additional_loss=1  \
-            model_config.RAVQA_loss_type=Approach6  \
-            data_loader.additional.num_knowledge_passages=5
-```
-Testing Example:
-```
-python main.py ../configs/RAVQA.jsonnet  \
-    --mode test  \
-    --experiment_name OKVQA_RA-VQA_FullCorpus  \
-    --accelerator auto --devices auto  \
-    --modules force_existence  \
-    --opts data_loader.additional.num_knowledge_passages=5  \
-            test.load_model_path=../Experiments/OKVQA_RA-VQA_FullCorpus/train/saved_model/epoch_06.ckpt
-```
-
-### RA-VQA-NoCT
-Customized Targets are not used to improve answer generation:
-```
-python main.py ../configs/okvqa/RAVQA.jsonnet  \
-    --mode train  \
-    --experiment_name RA-VQA-NoCT  \
-    --accelerator auto --devices auto  \
-    --opts train.epochs=10  \
-            train.batch_size=4  \
-            valid.step_size=1  \
-            valid.batch_size=32  \
-            train.additional.gradient_accumulation_steps=8  \
-            train.lr=0.00006  \
-            train.retriever_lr=0.00001  \
-            train.scheduler=linear \
-            model_config.loss_ratio.additional_loss=1  \
-            model_config.RAVQA_loss_type=Approach6  \
-            data_loader.additional.num_knowledge_passages=5
-```
-
-### RA-VQA on Wikipedia
-Train RA-VQA with Wikipedia passages; The embeddings of Wikipedia passages are generated by the DPR paper.
-```
-python main.py ../configs/okvqa/RAVQA_wikipedia.jsonnet  \
-    --mode train  \
-    --experiment_name RA-VQA_Wikipedia  \
-    --accelerator auto --devices auto  \
-    --modules force_existence  \
-    --opts train.epochs=10  \
-            train.batch_size=4  \
-            valid.step_size=1  \
-            valid.batch_size=32  \
-            train.additional.gradient_accumulation_steps=8  \
-            train.lr=0.00006  \
-            train.retriever_lr=0.00001  \
-            train.scheduler=linear  \
-            model_config.loss_ratio.additional_loss=1  \
-            model_config.RAVQA_loss_type=Approach6  \
-            data_loader.additional.num_knowledge_passages=5
-```
-
-## Some Notes
-- For your convenience, we refactored the codebase to incorporate pytorch-lightning as the backbone. This makes model performance different from what we reported in our paper. But you should be able to obtain performance that is close enough. You can tune the hyperparameters on your own, as long as you choose the checkpoints for evaluation fairly.
-- There are no validation sets in both datasets. We evaluated systems per epoch and reported reasonable performance. In fact, you may obtain higher performance by setting a shorter validation interval.
+# Some Notes
 - This publication version was made in a rush due to intensive workload that the author currently have. We will add follow-up patches to make codes more readible and ensure reproducibility. (of course, the speed depends on the number of people who are interested in using this framework.)
+- Before applying the system to your own task, you may find it useful to read the author's note in `third_party/ColBERT/colbert/search/index_storage.py: Line 67`.
 
+# Citation
+
+If our work (including the software provided) helped your research, please kindly cite our paper at NeurIPS 2023 and EMNLP 2022:
+```
+@inproceedings{
+  lin2023finegrained,
+  title={Fine-grained Late-interaction Multi-modal Retrieval for Retrieval Augmented Visual Question Answering},
+  author={Weizhe Lin and Jinghong Chen and Jingbiao Mei and Alexandru Coca and Bill Byrne},
+  booktitle={Thirty-seventh Conference on Neural Information Processing Systems},
+  year={2023},
+  url={https://openreview.net/forum?id=IWWWulAX7g}
+}
+```
+```
+@inproceedings{lin-byrne-2022-retrieval,
+    title = "Retrieval Augmented Visual Question Answering with Outside Knowledge",
+    author = "Lin, Weizhe  and
+      Byrne, Bill",
+    editor = "Goldberg, Yoav  and
+      Kozareva, Zornitsa  and
+      Zhang, Yue",
+    booktitle = "Proceedings of the 2022 Conference on Empirical Methods in Natural Language Processing",
+    month = dec,
+    year = "2022",
+    address = "Abu Dhabi, United Arab Emirates",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2022.emnlp-main.772",
+    doi = "10.18653/v1/2022.emnlp-main.772",
+    pages = "11238--11254",
+    abstract = "Outside-Knowledge Visual Question Answering (OK-VQA) is a challenging VQA task that requires retrieval of external knowledge to answer questions about images. Recent OK-VQA systems use Dense Passage Retrieval (DPR) to retrieve documents from external knowledge bases, such as Wikipedia, but with DPR trained separately from answer generation, introducing a potential limit on the overall system performance. Instead, we propose a joint training scheme which includes differentiable DPR integrated with answer generation so that the system can be trained in an end-to-end fashion. Our experiments show that our scheme outperforms recent OK-VQA systems with strong DPR for retrieval. We also introduce new diagnostic metrics to analyze how retrieval and generation interact. The strong retrieval ability of our model significantly reduces the number of retrieved documents needed in training, yielding significant benefits in answer quality and computation required for training.",
+}
+```

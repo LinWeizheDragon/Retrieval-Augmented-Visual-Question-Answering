@@ -191,7 +191,7 @@ class VQA:
         assert type(anns) == list, 'results is not an array of objects'
         annsQuesIds = [ann['question_id'] for ann in anns]
         assert set(annsQuesIds) == set(self.getQuesIds()), \
-        'Results do not correspond to current VQA set. Either the results do not have predictions for all question ids in annotation file or there is atleast one question id that does not belong to the question ids in the annotation file.'
+        f'Results do not correspond to current VQA set. Either the results do not have predictions for all question ids in annotation file or there is atleast one question id that does not belong to the question ids in the annotation file. {set(annsQuesIds).difference(set(self.getQuesIds()))}'
         for ann in anns:
             quesId                  = ann['question_id']
             if res.dataset['task_type'] == 'Multiple Choice':
@@ -225,8 +225,9 @@ class VQA:
         anns    = resFile #json.load(open(resFile))
         assert type(anns) == list, 'results is not an array of objects'
         annsQuesIds = [ann['question_id'] for ann in anns]
+        print(self.getQuesIds())
         assert set(annsQuesIds) == set(self.getQuesIds()), \
-        'Results do not correspond to current VQA set. Either the results do not have predictions for all question ids in annotation file or there is atleast one question id that does not belong to the question ids in the annotation file.'
+        f'Results do not correspond to current VQA set. Either the results do not have predictions for all question ids in annotation file or there is atleast one question id that does not belong to the question ids in the annotation file. {set(annsQuesIds).difference(set(self.getQuesIds()))}'
         for ann in anns:
             quesId                  = ann['question_id']
             if res.dataset['task_type'] == 'Multiple Choice':
