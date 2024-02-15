@@ -2,8 +2,8 @@
 
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/preflmr-scaling-up-fine-grained-late/retrieval-on-infoseek)](https://paperswithcode.com/sota/retrieval-on-infoseek?p=preflmr-scaling-up-fine-grained-late)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/preflmr-scaling-up-fine-grained-late/visual-question-answering-vqa-on-infoseek)](https://paperswithcode.com/sota/visual-question-answering-vqa-on-infoseek?p=preflmr-scaling-up-fine-grained-late)
-[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/fine-grained-late-interaction-multi-modal-1/visual-question-answering-on-ok-vqa)](https://paperswithcode.com/sota/visual-question-answering-on-ok-vqa?p=fine-grained-late-interaction-multi-modal-1)
 [![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/fine-grained-late-interaction-multi-modal-1/retrieval-on-ok-vqa)](https://paperswithcode.com/sota/retrieval-on-ok-vqa?p=fine-grained-late-interaction-multi-modal-1)
+[![PWC](https://img.shields.io/endpoint.svg?url=https://paperswithcode.com/badge/fine-grained-late-interaction-multi-modal-1/visual-question-answering-on-ok-vqa)](https://paperswithcode.com/sota/visual-question-answering-on-ok-vqa?p=fine-grained-late-interaction-multi-modal-1)
 
 This is the official repository of the Retrieval Augmented Visual Question Answering (RAVQA) project.
 The project covers RAVQA and RAVQA-v2 (equipped with Fine-grained Late-interaction Multi-modal Retrieval).
