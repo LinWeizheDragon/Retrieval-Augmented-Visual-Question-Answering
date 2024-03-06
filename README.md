@@ -12,7 +12,7 @@ The project covers RAVQA and RAVQA-v2 (equipped with Fine-grained Late-interacti
 
 
 # 🔥🔥News
-- [06/03/2024] The implementation based on huggingface-transforners is now available [here](https://github.com/linweizhedragon/FLMR)!
+- [06/03/2024] The implementation based on huggingface-transformers is now available [here](https://github.com/linweizhedragon/FLMR)!
 - [20/02/2024] 🔥🔥🔥 The [PreFLMR project page](https://preflmr.github.io/) has been launched! Explore a captivating demo showcasing PreFLMR_ViT-G, our largest model yet. Additionally, access pre-trained checkpoints and the M2KR benchmark, designed for assessing general-purpose knowledge retrievers. Stay tuned as we will soon upload a huggingface-compatible implementation along with example scripts for indexing and retrieval, providing effortless access via `FLMRModelForRetrieval.from_pretrained(...)`.
 - [14/02/2024] 🔥Our follow-up work, PreFLMR, is now available [here](https://arxiv.org/abs/2402.08327)! PreFLMR is a general-purpose retriever that was pre-trained on more than ten million multi-modal retrieval data and achieved strong performance across a wide range of knowledge-intensive tasks. It can also serve as a strong foundation retrieval model that can be fine-tuned to fit any downstream retrieval tasks. We will release the model through huggingface-transformers very soon, which allows quick deployment in minutes.
 - [31/01/2024] 🔥We are happy to announce that the training and testing code for FLMR is now released! For the legacy RAVQA-v1 and the code for FVQA, please checkout to `legacy_v1` or tag `v1.0`. We are also preparing a new FLMR implementation for Huggingface transformers, which will be released as plug-in-and-play models.🔥
