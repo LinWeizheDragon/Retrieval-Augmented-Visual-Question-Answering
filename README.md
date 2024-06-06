@@ -13,9 +13,9 @@ The project covers RAVQA and RAVQA-v2 (equipped with Fine-grained Late-interacti
 
 # 🔥🔥News
 - [05/06/2024] 🔥🔥🔥We made some important updates
-  - Added an evaluation script that reproduces the results in the PreFLMR paper [here]([#new-evaluate-the-preflmr-models-on-all-m2kr-benchmarks](https://github.com/LinWeizheDragon/FLMR?tab=readme-ov-file#new-evaluate-the-preflmr-models-on-all-m2kr-benchmarks))
-  - Added the updated benchmark results with the transformer implementation [here]([#models-and-benchmark-results](https://github.com/LinWeizheDragon/FLMR?tab=readme-ov-file#models-and-benchmark-results))
-  - Added an example script to fine-tune PreFLMR on a custom retrieval dataset [here]([#new-finetune-the-preflmr-model-on-downstream-datasets](https://github.com/LinWeizheDragon/FLMR?tab=readme-ov-file#new-finetune-the-preflmr-model-on-downstream-datasets))
+  - Added an evaluation script that reproduces the results in the PreFLMR paper [here](https://github.com/LinWeizheDragon/FLMR?tab=readme-ov-file#new-evaluate-the-preflmr-models-on-all-m2kr-benchmarks)
+  - Added the updated benchmark results with the transformer implementation [here](https://github.com/LinWeizheDragon/FLMR?tab=readme-ov-file#models-and-benchmark-results)
+  - Added an example script to fine-tune PreFLMR on a custom retrieval dataset [here](https://github.com/LinWeizheDragon/FLMR?tab=readme-ov-file#new-finetune-the-preflmr-model-on-downstream-datasets)
   - **IMPORTANT**: fixed the OVEN data splits in the M2KR benchmark, and updated each entry with a fixed instruction to ensure the evaluation result is not affected by random sampling of instructions. Please delete your local cache and download the dataset again.
 - [13/04/2024] 🔥 We highlight another valuable and concurrent research on training instruction-following, universal, multi-task multi-modal retrievers: [UniIR: Training and Benchmarking Universal Multimodal Information Retrievers](https://tiger-ai-lab.github.io/UniIR/), which was done by the researchers of the University of Waterloo. They also shared the M-Beir benchmark which can be used to train and evaluate multi-modal universal information retrievers. In the near future, we may collaborate to combine the two benchmarks together to facilitate the advance of this field.
 - [06/03/2024] 🔥🔥🔥The implementation based on huggingface-transformers is now available [here](https://github.com/linweizhedragon/FLMR)!
