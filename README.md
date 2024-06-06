@@ -12,9 +12,9 @@ The project covers RAVQA and RAVQA-v2 (equipped with Fine-grained Late-interacti
 
 
 # 🔥🔥News
-- [05/06/2024] 🔥🔥🔥We made some important updates
+- [05/06/2024] 🔥🔥🔥The PreFLMR paper has been accepted to appear at ACL 2024! The camera-ready version of the paper has been updated [here](https://arxiv.org/abs/2402.08327) to include more details and analyses. Along with the acceptance, we have made some important updates to help you use the model and extend your research easier:
   - Added an evaluation script that reproduces the results in the PreFLMR paper [here](https://github.com/LinWeizheDragon/FLMR?tab=readme-ov-file#new-evaluate-the-preflmr-models-on-all-m2kr-benchmarks)
-  - Added the updated benchmark results with the transformer implementation [here](https://github.com/LinWeizheDragon/FLMR?tab=readme-ov-file#models-and-benchmark-results)
+  - Added the updated benchmark results with the transformer implementation [here](#benchmark-results-for-preflmr-in-the-dedicated-flmr-codebase)
   - Added an example script to fine-tune PreFLMR on a custom retrieval dataset [here](https://github.com/LinWeizheDragon/FLMR?tab=readme-ov-file#new-finetune-the-preflmr-model-on-downstream-datasets)
   - **IMPORTANT**: fixed the OVEN data splits in the M2KR benchmark, and updated each entry with a fixed instruction to ensure the evaluation result is not affected by random sampling of instructions. Please delete your local cache and download the dataset again.
 - [13/04/2024] 🔥 We highlight another valuable and concurrent research on training instruction-following, universal, multi-task multi-modal retrievers: [UniIR: Training and Benchmarking Universal Multimodal Information Retrievers](https://tiger-ai-lab.github.io/UniIR/), which was done by the researchers of the University of Waterloo. They also shared the M-Beir benchmark which can be used to train and evaluate multi-modal universal information retrievers. In the near future, we may collaborate to combine the two benchmarks together to facilitate the advance of this field.
@@ -40,6 +40,8 @@ The project covers RAVQA and RAVQA-v2 (equipped with Fine-grained Late-interacti
 - [🔥🔥News](#news)
   - [Table of Content](#table-of-content)
 - [Benchmarks](#benchmarks)
+  - [Benchmark Results for PreFLMR in the dedicated FLMR codebase](#benchmark-results-for-preflmr-in-the-dedicated-flmr-codebase)
+  - [Benchmark Results for FLMR in this codebase](#benchmark-results-for-flmr-in-this-codebase)
 - [Resources](#resources)
 - [Detailed Instructions](#detailed-instructions)
   - [Overview](#overview)
@@ -82,6 +84,20 @@ The project covers RAVQA and RAVQA-v2 (equipped with Fine-grained Late-interacti
 
 
 # Benchmarks
+
+## Benchmark Results for PreFLMR in the dedicated [FLMR](https://github.com/LinWeizheDragon/FLMR) codebase
+
+| Model         | WIT Recall@10 | IGLUE Recall@1 | KVQA Recall@5 | MSMARCO Recall@5 | OVEN Recall@5 | LLaVA Recall@1 | EVQA Recall@5 | EVQA Pseudo Recall@5 | OKVQA Recall@5 | OKVQA Pseudo Recall@5 | Infoseek Recall@5 | Infoseek Pseudo Recall@5 |
+|---------------|---------------|----------------|---------------|------------------|---------------|----------------|---------------|----------------------|----------------|-----------------------|-------------------|--------------------------|
+| [LinWeizheDragon/PreFLMR_ViT-G🤗](https://huggingface.co/LinWeizheDragon/PreFLMR_ViT-G) | 0.619         | 0.718          | 0.419         | 0.783            | 0.643         | 0.726          | 0.625         | 0.721                | 0.302          | 0.674                 | 0.392             | 0.577                    |
+| [LinWeizheDragon/PreFLMR_ViT-L🤗](https://huggingface.co/LinWeizheDragon/PreFLMR_ViT-L) | 0.605         | 0.699          | 0.440         | 0.779            | 0.608         | 0.729          | 0.609         | 0.708                | 0.314          | 0.690                 | 0.374             | 0.578                    |
+| [LinWeizheDragon/PreFLMR_ViT-B🤗](https://huggingface.co/LinWeizheDragon/PreFLMR_ViT-B) | 0.427         | 0.574          | 0.294         | 0.786            | 0.468         | 0.673          | 0.550         | 0.663                | 0.272          | 0.658                 | 0.260             | 0.496                    |
+
+**Note:** We converted the checkpoints from PyTorch to Huggingface-transformers, whose benchmark results differ from the numbers reported in the original paper slightly. You can reproduce the results in the above paper by referring to the instructions in [this document](https://github.com/LinWeizheDragon/FLMR/blob/main/docs/Datasets.md).
+
+
+
+## Benchmark Results for FLMR in this codebase
 Using the provided codebase, it is expected to obtain the following results.
 
 | Model  | Recall@5 | Notes |
