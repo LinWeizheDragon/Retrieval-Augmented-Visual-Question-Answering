@@ -587,6 +587,15 @@ If you encounter GPU OOM errors, try reducing `num_knowledge_passages_in_trainin
 
 If our work (including the software provided) helped your research, please kindly cite our paper at NeurIPS 2023 and EMNLP 2022:
 ```
+@article{Lin_Mei_Chen_Byrne_2024, 
+        title={PreFLMR: Scaling Up Fine-Grained Late-Interaction Multi-modal Retrievers}, 
+        url={http://arxiv.org/abs/2402.08327}, 
+        number={arXiv:2402.08327}, 
+        publisher={arXiv}, 
+        author={Lin, Weizhe and Mei, Jingbiao and Chen, Jinghong and Byrne, Bill}, 
+        year={2024}}
+```
+```
 @inproceedings{
   lin2023finegrained,
   title={Fine-grained Late-interaction Multi-modal Retrieval for Retrieval Augmented Visual Question Answering},
