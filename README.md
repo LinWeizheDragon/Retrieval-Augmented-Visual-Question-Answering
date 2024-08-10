@@ -12,6 +12,7 @@ The project covers RAVQA and RAVQA-v2 (equipped with Fine-grained Late-interacti
 
 
 # 🔥🔥News
+- [10/08/2024] We received many requests regarding adding multilingual abilities to PreFLMR. We announce that **we are now training the Chinese version of PreFLMR and will release it very soon**. Stay tuned!
 - [05/06/2024] 🔥🔥🔥The PreFLMR paper has been accepted to appear at ACL 2024! The camera-ready version of the paper has been updated [here](https://arxiv.org/abs/2402.08327) to include more details and analyses. Along with the acceptance, we have made some important updates to help you use the model and extend your research easier:
   - Added an evaluation script that reproduces the results in the PreFLMR paper [here](https://github.com/LinWeizheDragon/FLMR?tab=readme-ov-file#new-evaluate-the-preflmr-models-on-all-m2kr-benchmarks)
   - Added the updated benchmark results with the transformer implementation [here](#benchmark-results-for-preflmr-in-the-dedicated-flmr-codebase)
