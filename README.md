@@ -12,6 +12,7 @@ The project covers RAVQA and RAVQA-v2 (equipped with Fine-grained Late-interacti
 
 
 # 🔥🔥News
+- [03/09/2024] We have uploaded the images used in the M2KR benchmark [here](https://huggingface.co/datasets/BByrneLab/M2KR_Images) .
 - [10/08/2024] We received many requests regarding adding multilingual abilities to PreFLMR. We announce that **we are now training the Chinese version of PreFLMR and will release it very soon**. Stay tuned!
 - [05/06/2024] 🔥🔥🔥The PreFLMR paper has been accepted to appear at ACL 2024! The camera-ready version of the paper has been updated [here](https://arxiv.org/abs/2402.08327) to include more details and analyses. Along with the acceptance, we have made some important updates to help you use the model and extend your research easier:
   - Added an evaluation script that reproduces the results in the PreFLMR paper [here](https://github.com/LinWeizheDragon/FLMR?tab=readme-ov-file#new-evaluate-the-preflmr-models-on-all-m2kr-benchmarks)
@@ -96,6 +97,7 @@ The project covers RAVQA and RAVQA-v2 (equipped with Fine-grained Late-interacti
 
 **Note:** We converted the checkpoints from PyTorch to Huggingface-transformers, whose benchmark results differ from the numbers reported in the original paper slightly. You can reproduce the results in the above paper by referring to the instructions in [this document](https://github.com/LinWeizheDragon/FLMR/blob/main/docs/Datasets.md).
 
+The benchmark dataset corpus can be found [here](https://huggingface.co/datasets/BByrneLab/multi_task_multi_modal_knowledge_retrieval_benchmark_M2KR) and the images can be found [here](https://huggingface.co/datasets/BByrneLab/M2KR_Images) 
 
 
 ## Benchmark Results for FLMR in this codebase
