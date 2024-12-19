@@ -12,6 +12,7 @@ The project covers RAVQA and RAVQA-v2 (equipped with Fine-grained Late-interacti
 
 
 # 🔥🔥News
+- [19/12/2024] 🔥🔥🔥Release Multilingual version(Chinese + English ) of PreFLMR, you can download PreFLMR ENCN model [here](https://huggingface.co/LinWeizheDragon/PreFLMR_ViT-L_ENCN).
 - [03/09/2024] We have uploaded the images used in the M2KR benchmark [here](https://huggingface.co/datasets/BByrneLab/M2KR_Images) .
 - [10/08/2024] We received many requests regarding adding multilingual abilities to PreFLMR. We announce that **we are now training the Chinese version of PreFLMR and will release it very soon**. Stay tuned!
 - [05/06/2024] 🔥🔥🔥The PreFLMR paper has been accepted to appear at ACL 2024! The camera-ready version of the paper has been updated [here](https://arxiv.org/abs/2402.08327) to include more details and analyses. Along with the acceptance, we have made some important updates to help you use the model and extend your research easier:
@@ -43,6 +44,7 @@ The project covers RAVQA and RAVQA-v2 (equipped with Fine-grained Late-interacti
   - [Table of Content](#table-of-content)
 - [Benchmarks](#benchmarks)
   - [Benchmark Results for PreFLMR in the dedicated FLMR codebase](#benchmark-results-for-preflmr-in-the-dedicated-flmr-codebase)
+  - [Models and Benchmark Results for the M2KR Amd M2KR-CN (the Chinese split of the M2KR)](#models-and-benchmark-results-for-the-m2kr-amd-m2kr-cn-the-chinese-split-of-the-m2kr)
   - [Benchmark Results for FLMR in this codebase](#benchmark-results-for-flmr-in-this-codebase)
 - [Resources](#resources)
 - [Detailed Instructions](#detailed-instructions)
@@ -95,10 +97,15 @@ The project covers RAVQA and RAVQA-v2 (equipped with Fine-grained Late-interacti
 | [LinWeizheDragon/PreFLMR_ViT-L🤗](https://huggingface.co/LinWeizheDragon/PreFLMR_ViT-L) | 0.605         | 0.699          | 0.440         | 0.779            | 0.608         | 0.729          | 0.609         | 0.708                | 0.314          | 0.690                 | 0.374             | 0.578                    |
 | [LinWeizheDragon/PreFLMR_ViT-B🤗](https://huggingface.co/LinWeizheDragon/PreFLMR_ViT-B) | 0.427         | 0.574          | 0.294         | 0.786            | 0.468         | 0.673          | 0.550         | 0.663                | 0.272          | 0.658                 | 0.260             | 0.496                    |
 
+## Models and Benchmark Results for the M2KR Amd M2KR-CN (the Chinese split of the M2KR)
+|                            Model                             | WIT(EN) Recall@10 | WIT(CN) Recall@10 | KVQA(EN) Recall@5 | KVQA(EN) Recall@5 | MSMARCO(EN) Recall@5 | MSMARCO(CN) Recall@5 | OVEN(EN) Recall@5 | OVEN(CN) Recall@5 | LLaVA(EN) Recall@1 | LLaVA(CN) Recall@1 | EVQA(EN) Recall@5 | EVQA(CN) Recall@5 | OKVQA(EN) Recall@5 | OKVQA(CN) Recall@5 | Infoseek(EN) Recall@5 | Infoseek(CN) Recall@5 |
+| :----------------------------------------------------------: | :---------------: | :---------------: | :---------------: | :---------------: | :------------------: | :------------------: | :---------------: | :---------------: | :----------------: | :----------------: | :---------------: | :---------------: | :----------------: | :----------------: | :-------------------: | :-------------------: |
+| [LinWeizheDragon/PreFLMR_ViT-L🤗](https://huggingface.co/LinWeizheDragon/PreFLMR_ViT-L) |       60.5        |       10.9        |       43.6        |        3.2        |         78.7         |         10.3         |       59.8        |        6.6        |        71.8        |        3.2         |       70.8        |        2.8        |        68.5        |        2.1         |         57.9          |          7.9          |
+| [LinWeizheDragon/PreFLMR_ViT-L_ENCN🤗](https://huggingface.co/LinWeizheDragon/PreFLMR_ViT-L_ENCN) |       60.8        |       83.4        |       41.05       |       37.27       |         82.6         |        82.33         |       60.8        |       58.83       |       71.11        |       58.93        |       57.97       |       46.64       |       13.87        |       13.32        |         41.91         |         39.70         |
+
 **Note:** We converted the checkpoints from PyTorch to Huggingface-transformers, whose benchmark results differ from the numbers reported in the original paper slightly. You can reproduce the results in the above paper by referring to the instructions in [this document](https://github.com/LinWeizheDragon/FLMR/blob/main/docs/Datasets.md).
 
 The benchmark dataset corpus can be found [here](https://huggingface.co/datasets/BByrneLab/multi_task_multi_modal_knowledge_retrieval_benchmark_M2KR) and the images can be found [here](https://huggingface.co/datasets/BByrneLab/M2KR_Images) 
-
 
 ## Benchmark Results for FLMR in this codebase
 Using the provided codebase, it is expected to obtain the following results.
